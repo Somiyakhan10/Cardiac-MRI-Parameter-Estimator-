@@ -35,7 +35,7 @@ def pill(value: str, label: str) -> str:
 
 def equal_card(content, height="auto"):
     """Create equal-height cards with consistent styling."""
-    return f"""<div class="mp-card" style="min-height:{height}; overflow-y:auto; box-sizing:border-box;">
+    return f"""<div class="mp-card" style="min-height:{height}; overflow-y:auto; box-sizing:border-box; height:auto;">
         {content}
     </div>"""
 
@@ -136,7 +136,7 @@ with tab1:
         st.markdown('<p class="mp-section-title">Holzapfel-Ogden Constitutive Model</p>', unsafe_allow_html=True)
         st.markdown(
             equal_card("""
-            <p>The HO model is a structurally-based strain-energy framework describing the
+            <p style="margin-top:0;">The HO model is a structurally-based strain-energy framework describing the
             anisotropic, hyperelastic passive behavior of ventricular myocardium, using
             eight material parameters tied to the fiber (f), sheet (s), and fiber-sheet
             (fs) directions of the tissue microstructure.</p>
@@ -144,12 +144,12 @@ with tab1:
             scaling factors, <b>Ca</b> and <b>Cb</b>, applied to a reference parameter set,
             reducing the estimation problem to a two-value regression learnable directly
             from images.</p>
-            """, "340px"),
+            """, "400px"),
             unsafe_allow_html=True,
         )
     with col2:
         st.markdown('<p class="mp-section-title">Strain Energy Function</p>', unsafe_allow_html=True)
-        with st.container(height=380, border=True):
+        with st.container(height=440, border=True):
             st.latex(r"""
             \begin{aligned}
             \psi &= \frac{a}{2b}\exp[b(I_1-3)] \\
@@ -158,11 +158,14 @@ with tab1:
             \end{aligned}
             """)
             st.markdown(
-                "- **a, b** — isotropic matrix stiffness terms\n"
-                "- **a_f, b_f / a_s, b_s** — fiber / sheet direction stiffness\n"
-                "- **a_fs, b_fs** — fiber-sheet shear coupling\n"
-                "- **I₁, I₄f, I₄s, I₈fs** — deformation invariants\n"
-                "- **Ca, Cb** — learned scaling factors"
+                "<div style='margin-top:12px; font-size:0.9rem; line-height:1.7;'>"
+                "- <b>a, b</b> — isotropic matrix stiffness terms<br>"
+                "- <b>a_f, b_f / a_s, b_s</b> — fiber / sheet direction stiffness<br>"
+                "- <b>a_fs, b_fs</b> — fiber-sheet shear coupling<br>"
+                "- <b>I₁, I₄f, I₄s, I₈fs</b> — deformation invariants<br>"
+                "- <b>Ca, Cb</b> — learned scaling factors"
+                "</div>",
+                unsafe_allow_html=True
             )
 
     st.markdown('<p class="mp-section-title">Motivation</p>', unsafe_allow_html=True)
@@ -198,7 +201,7 @@ with tab2:
     for col, (num, title, desc) in zip(cols, steps_data):
         with col:
             st.markdown(
-                f"""<div class="mp-card" style="height:170px; text-align:center; display:flex; flex-direction:column; justify-content:center; overflow-y:auto;">
+                f"""<div class="mp-card" style="min-height:170px; text-align:center; display:flex; flex-direction:column; justify-content:center; overflow-y:auto; height:auto;">
                 <div style="font-size:1.8rem; font-weight:700; color:var(--mp-secondary);">{num}</div>
                 <b>{title}</b><br>
                 <span style="font-size:0.85rem;color:#52514e;">{desc}</span>
@@ -219,7 +222,7 @@ with tab2:
                 Parameters: {MODEL.count_params():,}<br><br>
                 Training configuration (epochs, dataset split, loss curve, and the Ca/Cb
                 labels used during training) is not recorded in the model artifact.
-                """, "280px"),
+                """, "320px"),
                 unsafe_allow_html=True,
             )
         else:
@@ -227,20 +230,23 @@ with tab2:
                 equal_card("""
                 Model not currently loaded. Expected input: 128×128×2 (ED and ES
                 channels). Expected output: two values (Ca, Cb).
-                """, "280px"),
+                """, "320px"),
                 unsafe_allow_html=True,
             )
     with col2:
         st.markdown('<p class="mp-section-title">Parameter Grouping</p>', unsafe_allow_html=True)
-        with st.container(height=320, border=True):
+        with st.container(height=360, border=True):
             st.latex(r"a_G = C_a \cdot a_{0G} \qquad\qquad b_G = C_b \cdot b_{0G}")
             st.markdown(
+                "<div style='margin-top:12px; font-size:0.9rem; line-height:1.7;'>"
                 "Each a-type HO parameter is scaled by a single factor Ca and each "
                 "b-type parameter by a single factor Cb, relative to a "
                 "population-reference parameter set (a₀, b₀). No training-time "
                 "preprocessing script is available for this model; each channel is "
                 "percentile-clipped (1st/99th) and scaled to [0, 1] independently "
                 "before resizing."
+                "</div>",
+                unsafe_allow_html=True
             )
 
     st.markdown('<p class="mp-section-title">Uncertainty Estimation</p>', unsafe_allow_html=True)
@@ -381,8 +387,8 @@ with tab5:
     with col1:
         st.markdown('<p class="mp-section-title">Clinical Applications</p>', unsafe_allow_html=True)
         st.markdown(
-            """<div class="mp-card" style="min-height:200px;">
-            <ul>
+            """<div class="mp-card" style="min-height:220px; height:auto; overflow-y:auto;">
+            <ul style="margin:0; padding-left:1.2rem;">
             <li>Early diagnosis of structural heart disease</li>
             <li>Individualized treatment planning</li>
             <li>Patient risk stratification</li>
@@ -394,8 +400,8 @@ with tab5:
         )
         st.markdown('<p class="mp-section-title">Benefits</p>', unsafe_allow_html=True)
         st.markdown(
-            """<div class="mp-card" style="min-height:200px;">
-            <ul>
+            """<div class="mp-card" style="min-height:220px; height:auto; overflow-y:auto;">
+            <ul style="margin:0; padding-left:1.2rem;">
             <li>Non-invasive parameter estimation from routine cine MRI</li>
             <li>Near real-time results</li>
             <li>Enables population-scale studies</li>
@@ -408,8 +414,8 @@ with tab5:
     with col2:
         st.markdown('<p class="mp-section-title">Limitations</p>', unsafe_allow_html=True)
         st.markdown(
-            """<div class="mp-card" style="min-height:200px;">
-            <ul>
+            """<div class="mp-card" style="min-height:220px; height:auto; overflow-y:auto;">
+            <ul style="margin:0; padding-left:1.2rem;">
             <li>Predictions depend on correct ED/ES labeling by the user</li>
             <li>No ground truth exists for uploaded images</li>
             <li>Model training provenance is undocumented</li>
@@ -421,8 +427,8 @@ with tab5:
         )
         st.markdown('<p class="mp-section-title">Future Directions</p>', unsafe_allow_html=True)
         st.markdown(
-            """<div class="mp-card" style="min-height:200px;">
-            <ul>
+            """<div class="mp-card" style="min-height:220px; height:auto; overflow-y:auto;">
+            <ul style="margin:0; padding-left:1.2rem;">
             <li>Validation against expert-labeled clinical data</li>
             <li>Extension to full 3D ventricular geometry</li>
             <li>Incorporation of right-ventricular mechanics</li>
