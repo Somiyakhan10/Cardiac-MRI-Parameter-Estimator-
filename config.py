@@ -1,22 +1,23 @@
-import glob
 import os
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODELS_DIR = os.path.join(BASE_DIR, "models")
-
+import glob
 
 def _find_model_file() -> str:
-    keras_files = sorted(glob.glob(os.path.join(MODELS_DIR, "*.keras")))
-    h5_files = sorted(glob.glob(os.path.join(MODELS_DIR, "*.h5")))
+    models_dir = os.path.join(os.path.dirname(__file__), "models")
+    if not os.path.exists(models_dir):
+        return os.path.join(models_dir, "acdc_model_compatible.h5")
+    
+    keras_files = sorted(glob.glob(os.path.join(models_dir, "*.keras")))
+    h5_files = sorted(glob.glob(os.path.join(models_dir, "*.h5")))
     candidates = keras_files + h5_files
+    
     if candidates:
         return candidates[0]
-    return os.path.join(MODELS_DIR, "acdc_parameter_estimator.keras")
-
+    
+    return os.path.join(models_dir, "acdc_model_compatible.h5")
 
 MODEL_PATH = os.environ.get("MODEL_PATH", _find_model_file())
 
 ACDC_DATA_PATH = os.environ.get(
     "ACDC_DATA_PATH",
-    os.path.join(BASE_DIR, "data", "acdc_challenge_20170617")
+    os.path.join(os.path.dirname(__file__), "data", "acdc_challenge_20170617")
 )
