@@ -5,30 +5,40 @@ A Streamlit application that estimates patient-specific Holzapfel-Ogden (HO) pas
 ---
 ## Output
 
-### Overview Tab
-*Overview tab showing the project purpose, Holzapfel-Ogden constitutive model, strain energy function, motivation, and benchmark accuracy metrics.*
+### Dashboard Overview
+*The main dashboard interface displaying the project title, sidebar navigation, and the Overview tab with the Holzapfel-Ogden constitutive model explanation and benchmark accuracy metrics.*
 
-![Overview Tab](https://github.com/user-attachments/assets/2f300555-99fb-413a-97a9-400b4e8aab68)
+<img width="1858" height="705" alt="image" src="https://github.com/user-attachments/assets/00ca3b79-1d6f-41f1-b743-da4368b89322" />
 
-### Methodology Tab
-*Methodology tab displaying the end-to-end processing pipeline, network architecture, parameter grouping, and uncertainty estimation using Monte Carlo Dropout.*
+### Methodology
+*The Methodology tab illustrating the complete processing pipeline from image upload to parameter estimation, along with network architecture details, parameter grouping visualization, and Monte Carlo Dropout uncertainty quantification method.*
 
-![Methodology Tab](https://github.com/user-attachments/assets/23a044c4-c456-46d0-a119-9b78df6d371c)
+<img width="1498" height="789" alt="image" src="https://github.com/user-attachments/assets/2135efaf-46b4-488e-b096-395396f054fa" />
 
-### Interactive Demo Tab
-*Interactive Demo tab with ED and ES image uploaders, real-time model inference, predicted Ca and Cb parameters with uncertainty estimates, and inference speed comparison.*
 
-![Interactive Demo](https://github.com/user-attachments/assets/4df7e96a-8ce5-4e2d-a856-290c20d24a63)
+### Interactive Demonstration
+*The Interactive Demo tab featuring dual image uploaders for ED and ES cardiac MRI slices, real-time model inference displaying predicted Ca and Cb values with uncertainty bounds, and a comparative visualization of inference speed against traditional finite element optimization.*
 
-### Model Performance Tab
-*Model Performance tab showing benchmark accuracy metrics, Grad-CAM attention maps, and comparison between deep learning and traditional finite element optimization.*
+<img width="1502" height="778" alt="image" src="https://github.com/user-attachments/assets/1bd44532-3e3e-4a6d-84a2-3db18e35159f" />
 
-![Model Performance](https://github.com/user-attachments/assets/df74b5e4-3bb0-4794-84d9-276f5aeab63e)
 
-### Clinical Translation Tab
-*Clinical Translation tab covering clinical applications, benefits, current limitations, and future research directions for myocardial material parameter estimation.*
+### Model Performance Analysis
+*The Model Performance tab presenting benchmark accuracy metrics, Grad-CAM attention maps for model interpretability, and a comprehensive comparison between deep learning predictions and traditional finite element optimization methods.*
 
-![Clinical Translation](https://github.com/user-attachments/assets/783b3b9f-c5fb-46c5-b2dd-d05ff381e7be)
+<img width="1495" height="792" alt="image" src="https://github.com/user-attachments/assets/cec9456d-ec18-42d8-94b4-2b2bd99e4ff2" />
+
+
+### Prediction Results
+*Example prediction output showing the model's inference on an uploaded cardiac MRI pair, displaying the predicted Ca and Cb material parameters with their uncertainty estimates and the corresponding Grad-CAM attention overlay.*
+
+<img width="1510" height="651" alt="image" src="https://github.com/user-attachments/assets/dcbaa1e2-3d60-445f-9870-ae08b52be393" />
+
+
+### Clinical Translation
+*The Clinical Translation tab outlining potential clinical applications, key benefits, current limitations, and future research directions for myocardial material parameter estimation in cardiovascular disease management.*
+
+<img width="1505" height="611" alt="image" src="https://github.com/user-attachments/assets/79e57041-f6d8-4093-882c-cd2ee5714f92" />
+
 
 ## Overview
 
