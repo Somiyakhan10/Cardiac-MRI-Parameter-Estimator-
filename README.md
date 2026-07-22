@@ -127,19 +127,6 @@ MyoParam-Estimator/
 
 ---
 
-## Preprocessing
-
-No training-time preprocessing script is available for the supplied model. Each ED and ES channel is:
-
-- Percentile-clipped (1st and 99th percentile)
-- Scaled to the range [0, 1] independently
-- Resized to 128x128 pixels
-- Stacked into the model's input tensor (128x128x2)
-
-This is a documented assumption rather than a verified match to the original training pipeline.
-
----
-
 ## Input Validation
 
 The application performs two sanity checks before displaying a prediction:
@@ -159,12 +146,6 @@ Both warnings are advisory and do not block the prediction.
 - NIfTI (.nii, .nii.gz)
 
 ---
-
-## Uncertainty Estimation
-
-Predictions are reported as mean and standard deviation obtained via Monte Carlo Dropout (Gal and Ghahramani, 2016). The model's existing dropout layers remain active at inference time across 30 stochastic forward passes on the same input.
-
-
 
 ## License
 
