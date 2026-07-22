@@ -115,20 +115,6 @@ MyoParam-Estimator/
 └── assets/
     └── style.css                  Application theme
 ```
-
----
-
-## Usage
-
-1. Open the Interactive Demo tab
-2. Upload an End-Diastolic (ED) image
-3. Upload an End-Systolic (ES) image
-4. For 3D volumes, select the appropriate slice
-5. For 4D volumes, select both the cardiac phase and the slice
-6. View predicted Ca and Cb values with uncertainty estimates
-7. Download prediction report as plain text
-8. View Grad-CAM attention map in the Model Performance tab
-
 ---
 
 ## Input Validation
