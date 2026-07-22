@@ -33,6 +33,13 @@ def pill(value: str, label: str) -> str:
     </div>"""
 
 
+def equal_card(content, height="auto"):
+    """Create equal-height cards with consistent styling."""
+    return f"""<div class="mp-card" style="min-height:{height}; overflow-y:auto; box-sizing:border-box;">
+        {content}
+    </div>"""
+
+
 @st.cache_resource(show_spinner="Loading trained model...")
 def load_model():
     return keras.models.load_model(config.MODEL_PATH, compile=False)
@@ -113,14 +120,14 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.markdown('<p class="mp-section-title">Project Purpose</p>', unsafe_allow_html=True)
     st.markdown(
-        """<div class="mp-card" style="min-height:100px;">
+        equal_card("""
         This dashboard demonstrates estimation of patient-specific
         <b>Holzapfel-Ogden (HO)</b> passive myocardial material parameters from paired
         end-diastolic (ED) and end-systolic (ES) short-axis cardiac MRI slices using a
         trained convolutional neural network, in place of iterative inverse
         finite-element (FE) optimization. Upload an ED/ES image pair in the Interactive
         Demo tab to run inference against the loaded model.
-        </div>""",
+        """, "120px"),
         unsafe_allow_html=True,
     )
 
@@ -128,7 +135,7 @@ with tab1:
     with col1:
         st.markdown('<p class="mp-section-title">Holzapfel-Ogden Constitutive Model</p>', unsafe_allow_html=True)
         st.markdown(
-            """<div class="mp-card" style="height:390px; overflow-y:auto; box-sizing:border-box;">
+            equal_card("""
             <p>The HO model is a structurally-based strain-energy framework describing the
             anisotropic, hyperelastic passive behavior of ventricular myocardium, using
             eight material parameters tied to the fiber (f), sheet (s), and fiber-sheet
@@ -137,12 +144,12 @@ with tab1:
             scaling factors, <b>Ca</b> and <b>Cb</b>, applied to a reference parameter set,
             reducing the estimation problem to a two-value regression learnable directly
             from images.</p>
-            </div>""",
+            """, "340px"),
             unsafe_allow_html=True,
         )
     with col2:
         st.markdown('<p class="mp-section-title">Strain Energy Function</p>', unsafe_allow_html=True)
-        with st.container(height=390, border=True):
+        with st.container(height=380, border=True):
             st.latex(r"""
             \begin{aligned}
             \psi &= \frac{a}{2b}\exp[b(I_1-3)] \\
@@ -191,7 +198,7 @@ with tab2:
     for col, (num, title, desc) in zip(cols, steps_data):
         with col:
             st.markdown(
-                f"""<div class="mp-card" style="min-height:170px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                f"""<div class="mp-card" style="height:170px; text-align:center; display:flex; flex-direction:column; justify-content:center; overflow-y:auto;">
                 <div style="font-size:1.8rem; font-weight:700; color:var(--mp-secondary);">{num}</div>
                 <b>{title}</b><br>
                 <span style="font-size:0.85rem;color:#52514e;">{desc}</span>
@@ -204,7 +211,7 @@ with tab2:
         st.markdown('<p class="mp-section-title">Network Architecture</p>', unsafe_allow_html=True)
         if USE_REAL_MODEL:
             st.markdown(
-                f"""<div class="mp-card" style="height:260px; overflow-y:auto; box-sizing:border-box;">
+                equal_card(f"""
                 <b>Loaded model</b><br>
                 Input shape: {MODEL.input_shape}<br>
                 Output shape: {MODEL.output_shape}<br>
@@ -212,20 +219,20 @@ with tab2:
                 Parameters: {MODEL.count_params():,}<br><br>
                 Training configuration (epochs, dataset split, loss curve, and the Ca/Cb
                 labels used during training) is not recorded in the model artifact.
-                </div>""",
+                """, "280px"),
                 unsafe_allow_html=True,
             )
         else:
             st.markdown(
-                """<div class="mp-card" style="height:260px; overflow-y:auto; box-sizing:border-box;">
+                equal_card("""
                 Model not currently loaded. Expected input: 128×128×2 (ED and ES
                 channels). Expected output: two values (Ca, Cb).
-                </div>""",
+                """, "280px"),
                 unsafe_allow_html=True,
             )
     with col2:
         st.markdown('<p class="mp-section-title">Parameter Grouping</p>', unsafe_allow_html=True)
-        with st.container(height=260, border=True):
+        with st.container(height=320, border=True):
             st.latex(r"a_G = C_a \cdot a_{0G} \qquad\qquad b_G = C_b \cdot b_{0G}")
             st.markdown(
                 "Each a-type HO parameter is scaled by a single factor Ca and each "
@@ -238,7 +245,7 @@ with tab2:
 
     st.markdown('<p class="mp-section-title">Uncertainty Estimation</p>', unsafe_allow_html=True)
     st.markdown(
-        """<div class="mp-card">
+        """<div class="mp-card" style="min-height:100px;">
         Predicted values are reported as a mean and standard deviation obtained via
         Monte Carlo Dropout (Gal &amp; Ghahramani, 2016): the model's dropout layers
         remain active at inference time across 30 stochastic forward passes on the
@@ -374,7 +381,7 @@ with tab5:
     with col1:
         st.markdown('<p class="mp-section-title">Clinical Applications</p>', unsafe_allow_html=True)
         st.markdown(
-            """<div class="mp-card">
+            """<div class="mp-card" style="min-height:200px;">
             <ul>
             <li>Early diagnosis of structural heart disease</li>
             <li>Individualized treatment planning</li>
@@ -387,7 +394,7 @@ with tab5:
         )
         st.markdown('<p class="mp-section-title">Benefits</p>', unsafe_allow_html=True)
         st.markdown(
-            """<div class="mp-card">
+            """<div class="mp-card" style="min-height:200px;">
             <ul>
             <li>Non-invasive parameter estimation from routine cine MRI</li>
             <li>Near real-time results</li>
@@ -401,7 +408,7 @@ with tab5:
     with col2:
         st.markdown('<p class="mp-section-title">Limitations</p>', unsafe_allow_html=True)
         st.markdown(
-            """<div class="mp-card">
+            """<div class="mp-card" style="min-height:200px;">
             <ul>
             <li>Predictions depend on correct ED/ES labeling by the user</li>
             <li>No ground truth exists for uploaded images</li>
@@ -414,7 +421,7 @@ with tab5:
         )
         st.markdown('<p class="mp-section-title">Future Directions</p>', unsafe_allow_html=True)
         st.markdown(
-            """<div class="mp-card">
+            """<div class="mp-card" style="min-height:200px;">
             <ul>
             <li>Validation against expert-labeled clinical data</li>
             <li>Extension to full 3D ventricular geometry</li>
